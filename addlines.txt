@@ -1,0 +1,50 @@
+echo -n "Enter input file name: "
+read file
+if [ ! -e $file ]
+then
+echo "File '$file' does not exist"
+exit 1
+elif [ ! -r $file ]
+then
+echo "File '$file' is not readable"
+exit 1
+fi
+echo -n "Enter output file name: "
+
+read out
+if [ ! -e $out ]
+then
+echo "File '$out' does not exist"
+exit 1
+elif [ ! -w $file ]
+then
+echo "File '$out' is not writable"
+exit 1
+else
+while read myline
+do
+count=1
+while [ $count -gt 0 ]
+do
+echo "$count: $myline"
+count = $((count+1))
+done
+done < $file  > $out
+echo "File '$out' exists."
+fi
+while true
+do
+echo -n "Append to it (y/n)? "
+read a
+if [ $a = "y" ] || [ $a= "Y" ]
+then
+echo "This line was in the file before doublesp was executed" >> $out
+break
+elif test $a = "N" || test $a = "n"
+then
+
+break
+else
+echo "Invaild operation"
+fi
+done

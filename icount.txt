@@ -1,0 +1,37 @@
+echo -n "Enter input file name: "
+read file
+if [ ! -e $file ]
+then
+echo "File '$file' does not exist"
+exit 1
+elif [ ! -r $file ]
+then
+echo "File '$file' is not readable"
+exit 1
+fi
+while true
+do
+echo -n "Count lines, words, characters or all three (l, m, c, a)? "
+read word
+
+if [ $word = l -o $word = L ]
+then
+echo "File '$file' contains $( cat $file | wc -l ) lines."
+break
+elif [ $word = m -o $word = M ]
+then
+echo "File '$file' contains $(cat $file | wc -w) words."
+break
+elif [ $word = c -o $word = C ]
+then
+echo "File '$file' contains $(cat $file | wc -c) characters."
+break
+elif [ $word = a -o $word = A ]
+then
+echo "File '$file' contains $( cat $file | wc -l ) lines, $(cat $file | wc -w) words, $(cat $file | wc -c) characters."
+break
+else
+
+echo "Invaild Option"
+fi
+done

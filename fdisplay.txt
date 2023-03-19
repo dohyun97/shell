@@ -1,0 +1,35 @@
+echo -n "Enter input file name: "
+read file
+if [ ! -e $file ]
+then
+echo "File '$file' does not exist"
+exit 1
+elif [ ! -r $file ]
+then
+echo "File '$file' is not readable"
+exit 1
+fi
+while true
+do
+echo -n "Enter option (e, p, f, l): "
+read word
+if [ $word = e -o $word = E ]
+then
+cat $file
+break
+elif [ $word = p -o $word = P ]
+then
+cat $file | more
+break
+elif [ $word = f -o $word = F ]
+then
+ head -10 $file 
+break
+elif [ $word = l -o $word = L ]
+then
+ tail -10 $file 
+break
+else
+echo "Invail operation"
+fi
+done

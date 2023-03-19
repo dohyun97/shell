@@ -1,0 +1,1898 @@
+1. $ cp /eecs/dept/course/2019-20/W/2030tmp/xxx .
+2. $ ls
+   xxx
+3. $ cp /eecs/dept/course/2019-20/W/2030tmp/xFile? .
+4. $ ls xFile*
+   xFile2 xFile3
+5. $ mv xxx xFile1
+6. 1) $ echo $?
+      0
+   2) $ ls
+      xFile1 xFile2 xFile3
+7. 1) $ mkdir 2020F
+   2) $ mkdir -p /cs/home/dohyun97/2031A/2020F/lab7a
+8. $ ls -R 2020F
+   2020F:
+   lab7a
+
+   2020F/lab7a:
+
+9. $ mv xFile1 2020F/lab7a
+10.$ mv xFile* 2020F/lab7a
+11.$ ls -l -R 2020F
+   2020F:
+   total 0
+   drwx------ 2 dohyun97 ugrad 64 Nov 24 22:50 lab7a
+
+   2020F/lab7a:
+   total 12
+   -rwx------ 1 dohyun97 ugrad 145 Nov 24 22:20 xFile1
+   -rwx------ 1 dohyun97 ugrad 145 Nov 24 22:21 xFile2
+   -rwx------ 1 dohyun97 ugrad  87 Nov 24 22:21 xFile3
+12.1) $ cd 2020F
+   2) $ pwd
+      /cs/home/dohyun97/2031A/2020F
+13.1)$ ls -l lab7a
+     total 12
+     -rwx------ 1 dohyun97 ugrad 145 Nov 24 22:20 xFile1
+     -rwx------ 1 dohyun97 ugrad 145 Nov 24 22:21 xFile2
+     -rwx------ 1 dohyun97 ugrad  87 Nov 24 22:21 xFile3
+   2)$ ls -l
+     total 0
+     drwx------ 2 dohyun97 ugrad 64 Nov 24 22:50 lab7a
+14.$ cp -r lab7a lab7b
+15.$ ls -l *
+   lab7a:
+   total 12
+   -rwx------ 1 dohyun97 ugrad 145 Nov 24 22:20 xFile1
+   -rwx------ 1 dohyun97 ugrad 145 Nov 24 22:21 xFile2
+   -rwx------ 1 dohyun97 ugrad  87 Nov 24 22:21 xFile3
+
+   lab7b:
+   total 12
+   -rwx------ 1 dohyun97 ugrad 145 Nov 24 23:10 xFile1
+   -rwx------ 1 dohyun97 ugrad 145 Nov 24 23:10 xFile2
+   -rwx------ 1 dohyun97 ugrad  87 Nov 24 23:10 xFile3
+16.$ rmdir lab7a
+   rmdir: failed to remove ‘lab7a’: Directory not empty
+17.$ echo $?
+   1
+18.$ rm -r lab7a
+19.1)$ echo $?
+     0
+   2)$ ls lab7a
+     ls: cannot access lab7a: No such file or directory
+20.$ mv lab7b/xFile1 .
+21.$ find . -name "xFile*"
+   ./lab7b/xFile2
+   ./lab7b/xFile3
+   ./xFile1
+22.mv lab7b lab7working
+23.1)$ cd lab7working
+   2)$ pwd
+     /cs/home/dohyun97/2031A/2020F/lab7working
+24.$ mv /cs/home/dohyun97/2031A/2020F/xFile1 .
+25.$ ls -l
+   total 12
+   -rwx------ 1 dohyun97 ugrad 145 Nov 24 23:10 xFile1
+   -rwx------ 1 dohyun97 ugrad 145 Nov 24 23:10 xFile2
+   -rwx------ 1 dohyun97 ugrad  87 Nov 24 23:10 xFile3
+26.$ cat
+   Hi
+   Hi
+   There
+   There
+27.1)$ cat > tmp
+     Hi 
+     There
+   2)$ ls
+     tmp  xFile1  xFile2  xFile3
+   3)$ cat tmp
+     Hi
+     There
+28.$ rm tmp
+29.$ cat xFile1
+   John Smith  1222 26 Apr 1956
+   Tony Jones  2152 20 Mar 1950
+   John Duncan 2    20 Jan 1966
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+30.$ more xFile?
+   ::::::::::::::
+   xFile1
+   ::::::::::::::
+   John Smith  1222 26 Apr 1956
+   Tony Jones  2152 20 Mar 1950
+   John Duncan 2    20 Jan 1966
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+   ::::::::::::::
+   xFile2
+   ::::::::::::::
+   John Smith  1222 26 Apr 1956
+   Tony Jones  2152 20 Mar 1950
+   John Duncan 2    20 Jan 1966
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+   ::::::::::::::
+   xFile3
+   ::::::::::::::
+   John Smith  1222 26 Apr 1956
+   John Duncan 2    20 Jan 1966
+   Larry Jones 3223 20 Dec 1946
+31.$ wc -l xFile1
+   5 xFile1
+32.$ cat xFile1 | head -2
+   John Smith  1222 26 Apr 1956
+   Tony Jones  2152 20 Mar 1950
+33.$ cat xFile2 | tail -3
+   John Duncan 2    20 Jan 1966
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+34.1)$ diff xFile1 xFile2
+   2)$ echo $?
+     0
+35.1)$ cmp xFile1 xFile2
+   2)$ echo $?
+     0
+36.1)$ diff xFile2 xFile3
+     2d1
+     < Tony Jones  2152 20 Mar 1950
+     5d3
+     < Lisa Sue    1222 4  Jul 1980
+   2)$ echo $?
+     1
+37.1)$ cmp xFile2 xFile3
+     xFile2 xFile3 differ: byte 30, line 2
+   2)$ echo $?
+     1
+38.1)$ cat xFile1 xFile2 xFile3 >> xFile123
+   2)$ more xFile123
+     John Smith  1222 26 Apr 1956
+     Tony Jones  2152 20 Mar 1950
+     John Duncan 2    20 Jan 1966
+     Larry Jones 3223 20 Dec 1946
+     Lisa Sue    1222 4  Jul 1980
+     John Smith  1222 26 Apr 1956
+     Tony Jones  2152 20 Mar 1950
+     John Duncan 2    20 Jan 1966
+     Larry Jones 3223 20 Dec 1946
+     Lisa Sue    1222 4  Jul 1980
+     John Smith  1222 26 Apr 1956
+     John Duncan 2    20 Jan 1966
+     Larry Jones 3223 20 Dec 1946
+39.$ sort xFile123
+   John Duncan 2    20 Jan 1966
+   John Duncan 2    20 Jan 1966
+   John Duncan 2    20 Jan 1966
+   John Smith  1222 26 Apr 1956
+   John Smith  1222 26 Apr 1956
+   John Smith  1222 26 Apr 1956
+   Larry Jones 3223 20 Dec 1946
+   Larry Jones 3223 20 Dec 1946
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+   Lisa Sue    1222 4  Jul 1980
+   Tony Jones  2152 20 Mar 1950
+   Tony Jones  2152 20 Mar 1950
+40.$ cat xFile123 | sort | uniq
+   John Duncan 2    20 Jan 1966
+   John Smith  1222 26 Apr 1956
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+   Tony Jones  2152 20 Mar 1950
+41.$ cat xFile123 | sort | uniq > xFile123compact
+42.$ cat xFile123compact
+   John Duncan 2    20 Jan 1966
+   John Smith  1222 26 Apr 1956
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+   Tony Jones  2152 20 Mar 1950
+43.$ chmod u-r xFile1
+   $ ls xFile1 -l
+   --wx------ 1 dohyun97 ugrad 145 Nov 24 23:10 xFile1
+   $ cat xFile1
+   John Smith  1222 26 Apr 1956
+   Tony Jones  2152 20 Mar 1950
+   John Duncan 2    20 Jan 1966
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+
+44.$ chmod 775 xFile1
+   $ ls xFile1 -l
+   -rwxrwxr-x 1 dohyun97 ugrad 145 Nov 24 23:10 xFile1
+45.$ chmod g-w,o+rw xFile123compact
+   $ ls xFile123compact -l
+   -rwxr-xrwx 1 dohyun97 ugrad 145 Nov 25 00:37 xFile123compact
+46.$ echo "this is a xxx new line" >> xFile1
+   $ cat xFile1
+   John Smith  1222 26 Apr 1956
+   Tony Jones  2152 20 Mar 1950
+   John Duncan 2    20 Jan 1966
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+   this is a xxx new line
+47.$ chmod u-w xFile1
+   $ ls xFile1 -l
+   -r-xrwxr-x 1 dohyun97 ugrad 168 Nov 25 00:57 xFile1
+48.1)$ ls -t -l
+     total 20
+     -r-xrwxr-x 1 dohyun97 ugrad 168 Nov 25 00:57 xFile1
+     -rwxr-xrwx 1 dohyun97 ugrad 145 Nov 25 00:37 xFile123compact
+     -rw-r--r-- 1 dohyun97 ugrad 377 Nov 25 00:24 xFile123
+     -rwx------ 1 dohyun97 ugrad  87 Nov 24 23:10 xFile3
+     -rwx------ 1 dohyun97 ugrad 145 Nov 24 23:10 xFile2
+   2)$ ls -t -l -r
+     total 20
+     -rwx------ 1 dohyun97 ugrad 145 Nov 24 23:10 xFile2
+     -rwx------ 1 dohyun97 ugrad  87 Nov 24 23:10 xFile3
+     -rw-r--r-- 1 dohyun97 ugrad 377 Nov 25 00:24 xFile123
+     -rwxr-xrwx 1 dohyun97 ugrad 145 Nov 25 00:37 xFile123compact
+     -r-xrwxr-x 1 dohyun97 ugrad 168 Nov 25 00:57 xFile1
+49.1)$ ls -S -l
+     total 20
+     -rw-r--r-- 1 dohyun97 ugrad 377 Nov 25 00:24 xFile123
+     -r-xrwxr-x 1 dohyun97 ugrad 168 Nov 25 00:57 xFile1
+     -rwxr-xrwx 1 dohyun97 ugrad 145 Nov 25 00:37 xFile123compact
+     -rwx------ 1 dohyun97 ugrad 145 Nov 24 23:10 xFile2
+     -rwx------ 1 dohyun97 ugrad  87 Nov 24 23:10 xFile3
+   2)$ ls -S -r -l
+     total 20
+     -rwx------ 1 dohyun97 ugrad  87 Nov 24 23:10 xFile3
+     -rwx------ 1 dohyun97 ugrad 145 Nov 24 23:10 xFile2
+     -rwxr-xrwx 1 dohyun97 ugrad 145 Nov 25 00:37 xFile123compact
+     -r-xrwxr-x 1 dohyun97 ugrad 168 Nov 25 00:57 xFile1
+     -rw-r--r-- 1 dohyun97 ugrad 377 Nov 25 00:24 xFile123
+50.$ sort -k3 xFile123compact     //It is no correct because it's sorted by front number.It's not sorted numerically
+   John Smith  1222 26 Apr 1956
+   Lisa Sue    1222 4  Jul 1980
+   Tony Jones  2152 20 Mar 1950
+   John Duncan 2    20 Jan 1966
+   Larry Jones 3223 20 Dec 1946
+51.$ sort -k3 -n xFile123compact
+   John Duncan 2    20 Jan 1966
+   John Smith  1222 26 Apr 1956
+   Lisa Sue    1222 4  Jul 1980
+   Tony Jones  2152 20 Mar 1950
+   Larry Jones 3223 20 Dec 1946
+52.1)$ sort -k6 xFile123compact
+     Larry Jones 3223 20 Dec 1946
+     Tony Jones  2152 20 Mar 1950
+     John Smith  1222 26 Apr 1956
+     John Duncan 2    20 Jan 1966
+     Lisa Sue    1222 4  Jul 1980
+   2)$ sort -k6 -r xFile123compact
+     Lisa Sue    1222 4  Jul 1980
+     John Duncan 2    20 Jan 1966
+     John Smith  1222 26 Apr 1956
+     Tony Jones  2152 20 Mar 1950
+     Larry Jones 3223 20 Dec 1946
+53.$ sort -k5 xFile123compact
+   John Smith  1222 26 Apr 1956
+   Larry Jones 3223 20 Dec 1946
+   John Duncan 2    20 Jan 1966   //It's sorted lexicographically.
+   Lisa Sue    1222 4  Jul 1980
+   Tony Jones  2152 20 Mar 1950
+54.$ sort -k5 -M xFile123compact
+   John Duncan 2    20 Jan 1966
+   Tony Jones  2152 20 Mar 1950
+   John Smith  1222 26 Apr 1956
+   Lisa Sue    1222 4  Jul 1980
+   Larry Jones 3223 20 Dec 1946
+55.$ grep 2 xFile123compact
+   John Duncan 2    20 Jan 1966
+   John Smith  1222 26 Apr 1956
+   Larry Jones 3223 20 Dec 1946
+   Lisa Sue    1222 4  Jul 1980
+   Tony Jones  2152 20 Mar 1950
+56.$ grep [^0-9]2[^0-9] xFile123compact
+   John Duncan 2    20 Jan 1966
+57.$ grep 195 xFile123compact
+   John Smith  1222 26 Apr 1956
+   Tony Jones  2152 20 Mar 1950
+58.$ grep 195 xFile123compact | wc -l
+   2
+59.$ wc -l classlist
+   153 classlist
+60.$ grep -w Kim classlist
+   boho****  	*********	Kim	 Boho                               
+   dohyun**  	*********	Kim	 Dohyun  
+61.1)$ egrep Li classlist
+   andylin*  	*********	Lin	 Andy                               
+   bxliu**   	*********	Liu	 Bohao                              
+   jamesliu  	*********	Liu	 Junrui                             
+   jordanli  	*********	Li	 Zongda                                
+   liang**   	*********	Liang	 Qingyang                         
+   liling**  	*********	Li	 Ling   
+   liusiyao  	*********	Liu	 Siyao                              
+   ricky**   	*********	Li	 Junyi                               
+   rockyhl   	*********	Huang	 Lii                               
+   shilinli  	*********	Li	 Shilin
+    //It doesn't  look the Li as whole word
+   2)$ grep -w Li classlist
+   jordanli  	*********	Li	 Zongda                              
+   liling**  	*********	Li	 Ling                                
+   ricky**   	*********	Li	 Junyi                               
+   shilinli  	*********	Li	 Shilin 
+62.1)$ grep -w Wang classlist | wc -l
+     3
+   2)$ grep -w Wang classlist
+     david***  	*********	Wang	 Ningxi                            
+     jeffslw   	*********	Wang	 Jeff                              
+     <NO-CS-ACCT>	*********	Wang	 Tuoxiang  
+63.1)$ grep -w Kim classlist | wc -l
+     2
+   2)$ grep -w Kim classlist
+     boho****  	*********	Kim	 Boho                               
+     dohyun**  	*********	Kim	 Dohyun 
+64.$ grep -w Wong classlist |wc -l
+   2
+65.1)$ grep -w W[ao]ng classlist | wc -l
+     5
+   2)$ grep -w W[ao]ng classlist
+     david***  	*********	Wang	 Ningxi                            
+     jeffslw   	*********	Wang	 Jeff                              
+     <NO-CS-ACCT>	*********	Wang	 Tuoxiang                          
+     added    	*********	Wong	FengC
+     cse***  	*********	Wong	JunXiu
+   3)$ grep -w Ch[ae]n classlist
+     chenz**   	*********	Chen	 Zhihao                            
+     cjk****   	*********	Chen	 Jiakang                           
+     addedB   	*********	Chan	Jeck
+   4)$ grep -w L[ia]u classlist
+     bxliu**   	*********	Liu	 Bohao                              
+     jamesliu  	*********	Liu	 Junrui                             
+     liusiyao  	*********	Liu	 Siyao                              
+     addedC  	*********	Lau	XueSW
+66.
+$ cut -f 1 classlist
+aa*       
+aaron*    
+ad****    
+ademola*  
+agi*****  
+ahmadali  
+ahmadmal  
+ahmed***  
+aiyan**   
+ak****    
+andrijar  
+andylin*  
+aneesh**  
+aniket    
+aosman**  
+arnin     
+aryan***  
+ashna**   
+asjawad   
+ayush**   
+azeemc*   
+bansarip  
+bill****  
+bjweiler  
+boho****  
+brycec    
+bxliu**   
+cbaek     
+chenz**   
+chhina**  
+chinmayp  
+chongnyk  
+chris*g   
+cigdem    
+cjk****   
+david***  
+davzak    
+demon***  
+dhruvb**  
+dnevelev  
+dohyun**  
+dom**     
+dong****  
+dsikuk    
+dsmitty   
+duaaa**   
+duandan   
+eman*     
+ematus**  
+ericngoi  
+ericxia   
+farhan**  
+farnoodr  
+friasco   
+gfypaul*  
+ginjiruu  
+gnr       
+hamzam**  
+haofan    
+harsath   
+hm**      
+hoan***   
+huseyn    
+hussy**   
+hyeny**   
+isbahadr  
+ishakan   
+jamal***  
+jamesliu  
+jeffslw   
+jenish**  
+jerry**   
+jiankaih  
+jingyasu  
+jordanli  
+kenren**  
+ksu**     
+kuimou    
+liang**   
+liling**  
+littlesi  
+liusiyao  
+marino**  
+maximfed  
+messiah   
+mikezasl  
+mirthi    
+mk****    
+moham***  
+mohelsky  
+mohsin**  
+mrez**    
+mshaw**   
+mukky***  
+nabbas**  
+nickland  
+nimanjf   
+nish**    
+<NO-CS-ACCT>
+<NO-CS-ACCT>
+ohm**     
+omer**    
+parsabk   
+phucn     
+qian****  
+quuu      
+rafid**   
+raja**    
+ricky**   
+rigzin**  
+rms**     
+robinmas  
+rockyhl   
+rzj****   
+samishah  
+samridh*  
+sanizm    
+sanjitd   
+scepo     
+serif     
+shayn**   
+shilinli  
+sighue    
+sina***   
+snksbs**  
+swithin   
+taoran**  
+tashfia   
+tdp****   
+tigistw*  
+tommyguo  
+unaeem    
+usman**   
+vermmatt  
+visaagan  
+vknguyen  
+yanivk    
+yazan**   
+yelsaid   
+yibo****  
+yichi     
+ysun****  
+yuanla    
+yuntiand  
+zain***   
+zzcdog    
+added    
+addedB   
+addedC  
+cse***  
+cse***  
+ttCTV*  
+addedD  
+sh-4.2$ cut -f 3 classlist
+Ali
+Tam
+Djama
+Adenekan
+Marusarz
+Ali
+Malhi
+Ahmed
+Anowar
+Katmeh
+Radivojevic
+Lin
+Sharma
+Pethani
+Osman Ali
+Akhanda
+Kalra
+Wadhera
+Jawad
+Anand
+Cheema
+Panchal
+Sun
+Weiler
+Kim
+Cooke
+Liu
+Baek
+Chen
+Chhina
+Patel
+Chong
+De Croos
+Bakar
+Chen
+Wang
+Zakharian
+Qureshi
+Bhatt
+Nevelev
+Kim
+Calautti
+Dong
+Sikuku
+Smith
+Ali
+Duan
+Ideho
+Matus
+Ngoiya
+Xia
+Khot
+Rashidzadeh
+Malcolm
+Guo
+Egnatis
+Narayanan
+Mohamud
+Xu
+Kaliappa Gounder Thangavel
+Murali
+Nguyen
+Akhundov
+Saifee
+Jeon
+Is
+Kantak
+Ahmadzai
+Liu
+Wang
+Patel
+Cheng
+He
+Su
+Li
+Ren
+Su
+Yu
+Liang
+Li
+Zhao
+Liu
+Fazari
+Fedorov
+Alakozay
+Zaslavsky
+Karunakaran
+Kirwin
+Mohamed
+Mohelsky
+Anis
+Sharif
+Shaw
+Umar
+Abbas
+Landivar
+Najafi
+Fernando
+Hu
+Wang
+Patel
+Celik
+Bahmanikia
+Nguyen
+Qian
+Qu
+Ahmed
+Ahmadi
+Li
+Shawootsang
+Singh
+Masson
+Huang
+Ren
+Shah
+Banga
+Momin
+Desai
+Scepanovic
+Cetinalp
+Morgan
+Li
+Zhang
+Fahimi
+Al-Ogaidi
+Tan
+Sun
+Oyshi
+Dela Pena
+Wondimagegnehu
+Guo
+Naeem
+Akhtar
+Verma
+Sivagnanasuntharam
+Nguyen
+Khaslavsky
+Armoush
+Elsaid
+Zhou
+Zhang
+Sun
+Yun
+Duan
+Khan
+Zhou
+Wong
+Chan
+Lau
+Yu
+Wong
+Tong
+Pak
+sh-4.2$ cut -f 3 classlist
+Ali
+Tam
+Djama
+Adenekan
+Marusarz
+Ali
+Malhi
+Ahmed
+Anowar
+Katmeh
+Radivojevic
+Lin
+Sharma
+Pethani
+Osman Ali
+Akhanda
+Kalra
+Wadhera
+Jawad
+Anand
+Cheema
+Panchal
+Sun
+Weiler
+Kim
+Cooke
+Liu
+Baek
+Chen
+Chhina
+Patel
+Chong
+De Croos
+Bakar
+Chen
+Wang
+Zakharian
+Qureshi
+Bhatt
+Nevelev
+Kim
+Calautti
+Dong
+Sikuku
+Smith
+Ali
+Duan
+Ideho
+Matus
+Ngoiya
+Xia
+Khot
+Rashidzadeh
+Malcolm
+Guo
+Egnatis
+Narayanan
+Mohamud
+Xu
+Kaliappa Gounder Thangavel
+Murali
+Nguyen
+Akhundov
+Saifee
+Jeon
+Is
+Kantak
+Ahmadzai
+Liu
+Wang
+Patel
+Cheng
+He
+Su
+Li
+Ren
+Su
+Yu
+Liang
+Li
+Zhao
+Liu
+Fazari
+Fedorov
+Alakozay
+Zaslavsky
+Karunakaran
+Kirwin
+Mohamed
+Mohelsky
+Anis
+Sharif
+Shaw
+Umar
+Abbas
+Landivar
+Najafi
+Fernando
+Hu
+Wang
+Patel
+Celik
+Bahmanikia
+Nguyen
+Qian
+Qu
+Ahmed
+Ahmadi
+Li
+Shawootsang
+Singh
+Masson
+Huang
+Ren
+Shah
+Banga
+Momin
+Desai
+Scepanovic
+Cetinalp
+Morgan
+Li
+Zhang
+Fahimi
+Al-Ogaidi
+Tan
+Sun
+Oyshi
+Dela Pena
+Wondimagegnehu
+Guo
+Naeem
+Akhtar
+Verma
+Sivagnanasuntharam
+Nguyen
+Khaslavsky
+Armoush
+Elsaid
+Zhou
+Zhang
+Sun
+Yun
+Duan
+Khan
+Zhou
+Wong
+Chan
+Lau
+Yu
+Wong
+Tong
+Pak
+sh-4.2$ cut -f 1-3 classlist
+aa*       	*********	Ali
+aaron*    	*********	Tam
+ad****    	*********	Djama
+ademola*  	*********	Adenekan
+agi*****  	*********	Marusarz
+ahmadali  	*********	Ali
+ahmadmal  	*********	Malhi
+ahmed***  	*********	Ahmed
+aiyan**   	*********	Anowar
+ak****    	*********	Katmeh
+andrijar  	*********	Radivojevic
+andylin*  	*********	Lin
+aneesh**  	*********	Sharma
+aniket    	*********	Pethani
+aosman**  	*********	Osman Ali
+arnin     	*********	Akhanda
+aryan***  	*********	Kalra
+ashna**   	*********	Wadhera
+asjawad   	*********	Jawad
+ayush**   	*********	Anand
+azeemc*   	*********	Cheema
+bansarip  	*********	Panchal
+bill****  	*********	Sun
+bjweiler  	*********	Weiler
+boho****  	*********	Kim
+brycec    	*********	Cooke
+bxliu**   	*********	Liu
+cbaek     	*********	Baek
+chenz**   	*********	Chen
+chhina**  	*********	Chhina
+chinmayp  	*********	Patel
+chongnyk  	*********	Chong
+chris*g   	*********	De Croos
+cigdem    	*********	Bakar
+cjk****   	*********	Chen
+david***  	*********	Wang
+davzak    	*********	Zakharian
+demon***  	*********	Qureshi
+dhruvb**  	*********	Bhatt
+dnevelev  	*********	Nevelev
+dohyun**  	*********	Kim
+dom**     	*********	Calautti
+dong****  	*********	Dong
+dsikuk    	*********	Sikuku
+dsmitty   	*********	Smith
+duaaa**   	*********	Ali
+duandan   	*********	Duan
+eman*     	*********	Ideho
+ematus**  	*********	Matus
+ericngoi  	*********	Ngoiya
+ericxia   	*********	Xia
+farhan**  	*********	Khot
+farnoodr  	*********	Rashidzadeh
+friasco   	*********	Malcolm
+gfypaul*  	*********	Guo
+ginjiruu  	*********	Egnatis
+gnr       	*********	Narayanan
+hamzam**  	*********	Mohamud
+haofan    	*********	Xu
+harsath   	*********	Kaliappa Gounder Thangavel
+hm**      	*********	Murali
+hoan***   	*********	Nguyen
+huseyn    	*********	Akhundov
+hussy**   	*********	Saifee
+hyeny**   	*********	Jeon
+isbahadr  	*********	Is
+ishakan   	*********	Kantak
+jamal***  	*********	Ahmadzai
+jamesliu  	*********	Liu
+jeffslw   	*********	Wang
+jenish**  	*********	Patel
+jerry**   	*********	Cheng
+jiankaih  	*********	He
+jingyasu  	*********	Su
+jordanli  	*********	Li
+kenren**  	*********	Ren
+ksu**     	*********	Su
+kuimou    	*********	Yu
+liang**   	*********	Liang
+liling**  	*********	Li
+littlesi  	*********	Zhao
+liusiyao  	*********	Liu
+marino**  	*********	Fazari
+maximfed  	*********	Fedorov
+messiah   	*********	Alakozay
+mikezasl  	*********	Zaslavsky
+mirthi    	*********	Karunakaran
+mk****    	*********	Kirwin
+moham***  	*********	Mohamed
+mohelsky  	*********	Mohelsky
+mohsin**  	*********	Anis
+mrez**    	*********	Sharif
+mshaw**   	*********	Shaw
+mukky***  	*********	Umar
+nabbas**  	*********	Abbas
+nickland  	*********	Landivar
+nimanjf   	*********	Najafi
+nish**    	*********	Fernando
+<NO-CS-ACCT>	*********	Hu
+<NO-CS-ACCT>	*********	Wang
+ohm**     	*********	Patel
+omer**    	*********	Celik
+parsabk   	*********	Bahmanikia
+phucn     	*********	Nguyen
+qian****  	*********	Qian
+quuu      	*********	Qu
+rafid**   	*********	Ahmed
+raja**    	*********	Ahmadi
+ricky**   	*********	Li
+rigzin**  	*********	Shawootsang
+rms**     	*********	Singh
+robinmas  	*********	Masson
+rockyhl   	*********	Huang
+rzj****   	*********	Ren
+samishah  	*********	Shah
+samridh*  	*********	Banga
+sanizm    	*********	Momin
+sanjitd   	*********	Desai
+scepo     	*********	Scepanovic
+serif     	*********	Cetinalp
+shayn**   	*********	Morgan
+shilinli  	*********	Li
+sighue    	*********	Zhang
+sina***   	*********	Fahimi
+snksbs**  	*********	Al-Ogaidi
+swithin   	*********	Tan
+taoran**  	*********	Sun
+tashfia   	*********	Oyshi
+tdp****   	*********	Dela Pena
+tigistw*  	*********	Wondimagegnehu
+tommyguo  	*********	Guo
+unaeem    	*********	Naeem
+usman**   	*********	Akhtar
+vermmatt  	*********	Verma
+visaagan  	*********	Sivagnanasuntharam
+vknguyen  	*********	Nguyen
+yanivk    	*********	Khaslavsky
+yazan**   	*********	Armoush
+yelsaid   	*********	Elsaid
+yibo****  	*********	Zhou
+yichi     	*********	Zhang
+ysun****  	*********	Sun
+yuanla    	*********	Yun
+yuntiand  	*********	Duan
+zain***   	*********	Khan
+zzcdog    	*********	Zhou
+added    	*********	Wong
+addedB   	*********	Chan
+addedC  	*********	Lau
+cse***  	*********	Yu
+cse***  	*********	Wong
+ttCTV*  	cse******	Tong
+addedD  	*********	Pak
+sh-4.2$ cut -f 1,3 classlist
+aa*       	Ali
+aaron*    	Tam
+ad****    	Djama
+ademola*  	Adenekan
+agi*****  	Marusarz
+ahmadali  	Ali
+ahmadmal  	Malhi
+ahmed***  	Ahmed
+aiyan**   	Anowar
+ak****    	Katmeh
+andrijar  	Radivojevic
+andylin*  	Lin
+aneesh**  	Sharma
+aniket    	Pethani
+aosman**  	Osman Ali
+arnin     	Akhanda
+aryan***  	Kalra
+ashna**   	Wadhera
+asjawad   	Jawad
+ayush**   	Anand
+azeemc*   	Cheema
+bansarip  	Panchal
+bill****  	Sun
+bjweiler  	Weiler
+boho****  	Kim
+brycec    	Cooke
+bxliu**   	Liu
+cbaek     	Baek
+chenz**   	Chen
+chhina**  	Chhina
+chinmayp  	Patel
+chongnyk  	Chong
+chris*g   	De Croos
+cigdem    	Bakar
+cjk****   	Chen
+david***  	Wang
+davzak    	Zakharian
+demon***  	Qureshi
+dhruvb**  	Bhatt
+dnevelev  	Nevelev
+dohyun**  	Kim
+dom**     	Calautti
+dong****  	Dong
+dsikuk    	Sikuku
+dsmitty   	Smith
+duaaa**   	Ali
+duandan   	Duan
+eman*     	Ideho
+ematus**  	Matus
+ericngoi  	Ngoiya
+ericxia   	Xia
+farhan**  	Khot
+farnoodr  	Rashidzadeh
+friasco   	Malcolm
+gfypaul*  	Guo
+ginjiruu  	Egnatis
+gnr       	Narayanan
+hamzam**  	Mohamud
+haofan    	Xu
+harsath   	Kaliappa Gounder Thangavel
+hm**      	Murali
+hoan***   	Nguyen
+huseyn    	Akhundov
+hussy**   	Saifee
+hyeny**   	Jeon
+isbahadr  	Is
+ishakan   	Kantak
+jamal***  	Ahmadzai
+jamesliu  	Liu
+jeffslw   	Wang
+jenish**  	Patel
+jerry**   	Cheng
+jiankaih  	He
+jingyasu  	Su
+jordanli  	Li
+kenren**  	Ren
+ksu**     	Su
+kuimou    	Yu
+liang**   	Liang
+liling**  	Li
+littlesi  	Zhao
+liusiyao  	Liu
+marino**  	Fazari
+maximfed  	Fedorov
+messiah   	Alakozay
+mikezasl  	Zaslavsky
+mirthi    	Karunakaran
+mk****    	Kirwin
+moham***  	Mohamed
+mohelsky  	Mohelsky
+mohsin**  	Anis
+mrez**    	Sharif
+mshaw**   	Shaw
+mukky***  	Umar
+nabbas**  	Abbas
+nickland  	Landivar
+nimanjf   	Najafi
+nish**    	Fernando
+<NO-CS-ACCT>	Hu
+<NO-CS-ACCT>	Wang
+ohm**     	Patel
+omer**    	Celik
+parsabk   	Bahmanikia
+phucn     	Nguyen
+qian****  	Qian
+quuu      	Qu
+rafid**   	Ahmed
+raja**    	Ahmadi
+ricky**   	Li
+rigzin**  	Shawootsang
+rms**     	Singh
+robinmas  	Masson
+rockyhl   	Huang
+rzj****   	Ren
+samishah  	Shah
+samridh*  	Banga
+sanizm    	Momin
+sanjitd   	Desai
+scepo     	Scepanovic
+serif     	Cetinalp
+shayn**   	Morgan
+shilinli  	Li
+sighue    	Zhang
+sina***   	Fahimi
+snksbs**  	Al-Ogaidi
+swithin   	Tan
+taoran**  	Sun
+tashfia   	Oyshi
+tdp****   	Dela Pena
+tigistw*  	Wondimagegnehu
+tommyguo  	Guo
+unaeem    	Naeem
+usman**   	Akhtar
+vermmatt  	Verma
+visaagan  	Sivagnanasuntharam
+vknguyen  	Nguyen
+yanivk    	Khaslavsky
+yazan**   	Armoush
+yelsaid   	Elsaid
+yibo****  	Zhou
+yichi     	Zhang
+ysun****  	Sun
+yuanla    	Yun
+yuntiand  	Duan
+zain***   	Khan
+zzcdog    	Zhou
+added    	Wong
+addedB   	Chan
+addedC  	Lau
+cse***  	Yu
+cse***  	Wong
+ttCTV*  	Tong
+addedD  	Pak
+sh-4.2$ cut -f 3,4 classlist
+Ali	 Abdallah                           
+Tam	 Aaron                              
+Djama	 Abdullah                         
+Adenekan	 Ademola                       
+Marusarz	 Agnieszka                     
+Ali	 Ahmad                              
+Malhi	 Ahmad                            
+Ahmed	 Syed                             
+Anowar	 Aiyan                           
+Katmeh	 Ammar                           
+Radivojevic	 Andrija                    
+Lin	 Andy                               
+Sharma	 Aneesh                          
+Pethani	 Aniket                         
+Osman Ali	 Ayub                         
+Akhanda	 Arnin                          
+Kalra	 Aryan                            
+Wadhera	 Ashna                          
+Jawad	 Ahmed                            
+Anand	 Ayush                            
+Cheema	 Azeem                           
+Panchal	 Bansari                        
+Sun	 Wenzhi                             
+Weiler	 Benjamin                        
+Kim	 Boho                               
+Cooke	 Bryce                            
+Liu	 Bohao                              
+Baek	 Cheulsoon                         
+Chen	 Zhihao                            
+Chhina	 Amandeep                        
+Patel	 Chinmay                          
+Chong	 Noel                             
+De Croos	 Christopher                   
+Bakar	 Cigdem                           
+Chen	 Jiakang                           
+Wang	 Ningxi                            
+Zakharian	 David                        
+Qureshi	 Saad                           
+Bhatt	 Dhruv                            
+Nevelev	 Dennis                         
+Kim	 Dohyun                             
+Calautti	 Domenico                      
+Dong	 Jiaqing                           
+Sikuku	 Damian                          
+Smith	 Dylan                            
+Ali	 Duaa                               
+Duan	 Danyang                           
+Ideho	 Emmanuel                         
+Matus	 Eduardo                          
+Ngoiya	 Eric                            
+Xia	 Zhige                              
+Khot	 Farhan                            
+Rashidzadeh	 Farnood                    
+Malcolm	 Francis                        
+Guo	 Fangyu                             
+Egnatis	 Hunter                         
+Narayanan	 Roshani                      
+Mohamud	 Hamza                          
+Xu	 Haofan                              
+Kaliappa Gounder Thangavel	 Harsath     
+Murali	 Hariharan                       
+Nguyen	 Thi                             
+Akhundov	 Huseyn                        
+Saifee	 Hasnain                         
+Jeon	 Hyewon                            
+Is	 Enes                                
+Kantak	 Isha                            
+Ahmadzai	 Jamal                         
+Liu	 Junrui                             
+Wang	 Jeff                              
+Patel	 Jenish                           
+Cheng	 JiaJun                           
+He	 JianKai                             
+Su	 Jingya                              
+Li	 Zongda                              
+Ren	 Dexuan                             
+Su	 Zhu                                 
+Yu	 Kuimou                              
+Liang	 Qingyang                         
+Li	 Ling                                
+Zhao	 Yan                               
+Liu	 Siyao                              
+Fazari	 Marino                          
+Fedorov	 Maksim                         
+Alakozay	 Masih                         
+Zaslavsky	 Michael                      
+Karunakaran	 Mirthipan                  
+Kirwin	 Michael                         
+Mohamed	 Amir                           
+Mohelsky	 Alexander                     
+Anis	 Mohsin                            
+Sharif	 Mohammadreza                    
+Shaw	 Mathew                            
+Umar	 Mukhtar                           
+Abbas	 Noor                             
+Landivar	 Nicholas                      
+Najafi	 Nima                            
+Fernando	 Nishith                       
+Hu	 Zhenhua                             
+Wang	 Tuoxiang                          
+Patel	 Ohm                              
+Celik	 Omer                             
+Bahmanikia	 Parsa                       
+Nguyen	 Phu                             
+Qian	 Yuan                              
+Qu	 Yubo                                
+Ahmed	 Ismam                            
+Ahmadi	 Ramin                           
+Li	 Junyi                               
+Shawootsang	 Rigzin                     
+Singh	 Rana Manav                       
+Masson	 Robin                           
+Huang	 Lii                               
+Ren	 Zhe                                
+Shah	 Suleyman                          
+Banga	 Samridh                          
+Momin	 Saniz Shahbuddin                 
+Desai	 Sanjit                           
+Scepanovic	 Srdjan                      
+Cetinalp	 Serif                         
+Morgan	 Shayn                           
+Li	 Shilin                              
+Zhang	 Zhijie                           
+Fahimi	 Sina                            
+Al-Ogaidi	 Yousif                       
+Tan	 Xuchen                             
+Sun	 Taoran                             
+Oyshi	 Tashfia                          
+Dela Pena	 Timothy                      
+Wondimagegnehu	 Tigist                  
+Guo	 Tommy                              
+Naeem	 Umar                             
+Akhtar	 Usman                           
+Verma	 Matthew                          
+Sivagnanasuntharam	 Visaagan            
+Nguyen	 Vincent                         
+Khaslavsky	 Yaniv                       
+Armoush	 Mhd Yazan                      
+Elsaid	 Yasser                          
+Zhou	 Yibo                              
+Zhang	 Yichi                            
+Sun	 Yueyang                            
+Yun	 Hao                                
+Duan	 Yuntian                           
+Khan	 Zain                              
+Zhou	 Zhaochang       
+Wong	FengC
+Chan	Jeck
+Lau	XueSW
+Yu	Ying
+Wong	JunXiu
+Tong	Tracy
+Pak	 Son-hyang
+sh-4.2$ cut -f 3,4 classlist > tmp
+sh-4.2$ cat tmp
+Ali	 Abdallah                           
+Tam	 Aaron                              
+Djama	 Abdullah                         
+Adenekan	 Ademola                       
+Marusarz	 Agnieszka                     
+Ali	 Ahmad                              
+Malhi	 Ahmad                            
+Ahmed	 Syed                             
+Anowar	 Aiyan                           
+Katmeh	 Ammar                           
+Radivojevic	 Andrija                    
+Lin	 Andy                               
+Sharma	 Aneesh                          
+Pethani	 Aniket                         
+Osman Ali	 Ayub                         
+Akhanda	 Arnin                          
+Kalra	 Aryan                            
+Wadhera	 Ashna                          
+Jawad	 Ahmed                            
+Anand	 Ayush                            
+Cheema	 Azeem                           
+Panchal	 Bansari                        
+Sun	 Wenzhi                             
+Weiler	 Benjamin                        
+Kim	 Boho                               
+Cooke	 Bryce                            
+Liu	 Bohao                              
+Baek	 Cheulsoon                         
+Chen	 Zhihao                            
+Chhina	 Amandeep                        
+Patel	 Chinmay                          
+Chong	 Noel                             
+De Croos	 Christopher                   
+Bakar	 Cigdem                           
+Chen	 Jiakang                           
+Wang	 Ningxi                            
+Zakharian	 David                        
+Qureshi	 Saad                           
+Bhatt	 Dhruv                            
+Nevelev	 Dennis                         
+Kim	 Dohyun                             
+Calautti	 Domenico                      
+Dong	 Jiaqing                           
+Sikuku	 Damian                          
+Smith	 Dylan                            
+Ali	 Duaa                               
+Duan	 Danyang                           
+Ideho	 Emmanuel                         
+Matus	 Eduardo                          
+Ngoiya	 Eric                            
+Xia	 Zhige                              
+Khot	 Farhan                            
+Rashidzadeh	 Farnood                    
+Malcolm	 Francis                        
+Guo	 Fangyu                             
+Egnatis	 Hunter                         
+Narayanan	 Roshani                      
+Mohamud	 Hamza                          
+Xu	 Haofan                              
+Kaliappa Gounder Thangavel	 Harsath     
+Murali	 Hariharan                       
+Nguyen	 Thi                             
+Akhundov	 Huseyn                        
+Saifee	 Hasnain                         
+Jeon	 Hyewon                            
+Is	 Enes                                
+Kantak	 Isha                            
+Ahmadzai	 Jamal                         
+Liu	 Junrui                             
+Wang	 Jeff                              
+Patel	 Jenish                           
+Cheng	 JiaJun                           
+He	 JianKai                             
+Su	 Jingya                              
+Li	 Zongda                              
+Ren	 Dexuan                             
+Su	 Zhu                                 
+Yu	 Kuimou                              
+Liang	 Qingyang                         
+Li	 Ling                                
+Zhao	 Yan                               
+Liu	 Siyao                              
+Fazari	 Marino                          
+Fedorov	 Maksim                         
+Alakozay	 Masih                         
+Zaslavsky	 Michael                      
+Karunakaran	 Mirthipan                  
+Kirwin	 Michael                         
+Mohamed	 Amir                           
+Mohelsky	 Alexander                     
+Anis	 Mohsin                            
+Sharif	 Mohammadreza                    
+Shaw	 Mathew                            
+Umar	 Mukhtar                           
+Abbas	 Noor                             
+Landivar	 Nicholas                      
+Najafi	 Nima                            
+Fernando	 Nishith                       
+Hu	 Zhenhua                             
+Wang	 Tuoxiang                          
+Patel	 Ohm                              
+Celik	 Omer                             
+Bahmanikia	 Parsa                       
+Nguyen	 Phu                             
+Qian	 Yuan                              
+Qu	 Yubo                                
+Ahmed	 Ismam                            
+Ahmadi	 Ramin                           
+Li	 Junyi                               
+Shawootsang	 Rigzin                     
+Singh	 Rana Manav                       
+Masson	 Robin                           
+Huang	 Lii                               
+Ren	 Zhe                                
+Shah	 Suleyman                          
+Banga	 Samridh                          
+Momin	 Saniz Shahbuddin                 
+Desai	 Sanjit                           
+Scepanovic	 Srdjan                      
+Cetinalp	 Serif                         
+Morgan	 Shayn                           
+Li	 Shilin                              
+Zhang	 Zhijie                           
+Fahimi	 Sina                            
+Al-Ogaidi	 Yousif                       
+Tan	 Xuchen                             
+Sun	 Taoran                             
+Oyshi	 Tashfia                          
+Dela Pena	 Timothy                      
+Wondimagegnehu	 Tigist                  
+Guo	 Tommy                              
+Naeem	 Umar                             
+Akhtar	 Usman                           
+Verma	 Matthew                          
+Sivagnanasuntharam	 Visaagan            
+Nguyen	 Vincent                         
+Khaslavsky	 Yaniv                       
+Armoush	 Mhd Yazan                      
+Elsaid	 Yasser                          
+Zhou	 Yibo                              
+Zhang	 Yichi                            
+Sun	 Yueyang                            
+Yun	 Hao                                
+Duan	 Yuntian                           
+Khan	 Zain                              
+Zhou	 Zhaochang       
+Wong	FengC
+Chan	Jeck
+Lau	XueSW
+Yu	Ying
+Wong	JunXiu
+Tong	Tracy
+Pak	 Son-hyang
+sh-4.2$ cat classlist | sort -k 3 |cut -f 3,4
+Abbas	 Noor                             
+Adenekan	 Ademola                       
+Ahmadi	 Ramin                           
+Ahmadzai	 Jamal                         
+Ahmed	 Ismam                            
+Ahmed	 Syed                             
+Akhanda	 Arnin                          
+Akhtar	 Usman                           
+Akhundov	 Huseyn                        
+Alakozay	 Masih                         
+Ali	 Abdallah                           
+Ali	 Ahmad                              
+Ali	 Duaa                               
+Al-Ogaidi	 Yousif                       
+Anand	 Ayush                            
+Anis	 Mohsin                            
+Anowar	 Aiyan                           
+Armoush	 Mhd Yazan                      
+Baek	 Cheulsoon                         
+Bahmanikia	 Parsa                       
+Bakar	 Cigdem                           
+Banga	 Samridh                          
+Bhatt	 Dhruv                            
+Calautti	 Domenico                      
+Celik	 Omer                             
+Cetinalp	 Serif                         
+Chan	Jeck
+Cheema	 Azeem                           
+Cheng	 JiaJun                           
+Chen	 Jiakang                           
+Chen	 Zhihao                            
+Chhina	 Amandeep                        
+Chong	 Noel                             
+Cooke	 Bryce                            
+De Croos	 Christopher                   
+Dela Pena	 Timothy                      
+Desai	 Sanjit                           
+Djama	 Abdullah                         
+Dong	 Jiaqing                           
+Duan	 Danyang                           
+Duan	 Yuntian                           
+Egnatis	 Hunter                         
+Elsaid	 Yasser                          
+Fahimi	 Sina                            
+Fazari	 Marino                          
+Fedorov	 Maksim                         
+Fernando	 Nishith                       
+Guo	 Fangyu                             
+Guo	 Tommy                              
+He	 JianKai                             
+Huang	 Lii                               
+Hu	 Zhenhua                             
+Ideho	 Emmanuel                         
+Is	 Enes                                
+Jawad	 Ahmed                            
+Jeon	 Hyewon                            
+Kaliappa Gounder Thangavel	 Harsath     
+Kalra	 Aryan                            
+Kantak	 Isha                            
+Karunakaran	 Mirthipan                  
+Katmeh	 Ammar                           
+Khan	 Zain                              
+Khaslavsky	 Yaniv                       
+Khot	 Farhan                            
+Kim	 Boho                               
+Kim	 Dohyun                             
+Kirwin	 Michael                         
+Landivar	 Nicholas                      
+Lau	XueSW
+Liang	 Qingyang                         
+Li	 Junyi                               
+Li	 Ling                                
+Lin	 Andy                               
+Li	 Shilin                              
+Liu	 Bohao                              
+Liu	 Junrui                             
+Liu	 Siyao                              
+Li	 Zongda                              
+Malcolm	 Francis                        
+Malhi	 Ahmad                            
+Marusarz	 Agnieszka                     
+Masson	 Robin                           
+Matus	 Eduardo                          
+Mohamed	 Amir                           
+Mohamud	 Hamza                          
+Mohelsky	 Alexander                     
+Momin	 Saniz Shahbuddin                 
+Morgan	 Shayn                           
+Murali	 Hariharan                       
+Naeem	 Umar                             
+Najafi	 Nima                            
+Narayanan	 Roshani                      
+Nevelev	 Dennis                         
+Ngoiya	 Eric                            
+Nguyen	 Phu                             
+Nguyen	 Thi                             
+Nguyen	 Vincent                         
+Osman Ali	 Ayub                         
+Oyshi	 Tashfia                          
+Pak	 Son-hyang
+Panchal	 Bansari                        
+Patel	 Chinmay                          
+Patel	 Jenish                           
+Patel	 Ohm                              
+Pethani	 Aniket                         
+Qian	 Yuan                              
+Qureshi	 Saad                           
+Qu	 Yubo                                
+Radivojevic	 Andrija                    
+Rashidzadeh	 Farnood                    
+Ren	 Dexuan                             
+Ren	 Zhe                                
+Saifee	 Hasnain                         
+Scepanovic	 Srdjan                      
+Shah	 Suleyman                          
+Sharif	 Mohammadreza                    
+Sharma	 Aneesh                          
+Shaw	 Mathew                            
+Shawootsang	 Rigzin                     
+Sikuku	 Damian                          
+Singh	 Rana Manav                       
+Sivagnanasuntharam	 Visaagan            
+Smith	 Dylan                            
+Su	 Jingya                              
+Sun	 Taoran                             
+Sun	 Wenzhi                             
+Sun	 Yueyang                            
+Su	 Zhu                                 
+Tam	 Aaron                              
+Tan	 Xuchen                             
+Tong	Tracy
+Umar	 Mukhtar                           
+Verma	 Matthew                          
+Wadhera	 Ashna                          
+Wang	 Jeff                              
+Wang	 Ningxi                            
+Wang	 Tuoxiang                          
+Weiler	 Benjamin                        
+Wondimagegnehu	 Tigist                  
+Wong	FengC
+Wong	JunXiu
+Xia	 Zhige                              
+Xu	 Haofan                              
+Yu	 Kuimou                              
+Yun	 Hao                                
+Yu	Ying
+Zakharian	 David                        
+Zaslavsky	 Michael                      
+Zhang	 Yichi                            
+Zhang	 Zhijie                           
+Zhao	 Yan                               
+Zhou	 Yibo                              
+Zhou	 Zhaochang       
+sh-4.2$ cut -f 3,4 classlist > tmp
+sh-4.2$ cat tmp
+Ali	 Abdallah                           
+Tam	 Aaron                              
+Djama	 Abdullah                         
+Adenekan	 Ademola                       
+Marusarz	 Agnieszka                     
+Ali	 Ahmad                              
+Malhi	 Ahmad                            
+Ahmed	 Syed                             
+Anowar	 Aiyan                           
+Katmeh	 Ammar                           
+Radivojevic	 Andrija                    
+Lin	 Andy                               
+Sharma	 Aneesh                          
+Pethani	 Aniket                         
+Osman Ali	 Ayub                         
+Akhanda	 Arnin                          
+Kalra	 Aryan                            
+Wadhera	 Ashna                          
+Jawad	 Ahmed                            
+Anand	 Ayush                            
+Cheema	 Azeem                           
+Panchal	 Bansari                        
+Sun	 Wenzhi                             
+Weiler	 Benjamin                        
+Kim	 Boho                               
+Cooke	 Bryce                            
+Liu	 Bohao                              
+Baek	 Cheulsoon                         
+Chen	 Zhihao                            
+Chhina	 Amandeep                        
+Patel	 Chinmay                          
+Chong	 Noel                             
+De Croos	 Christopher                   
+Bakar	 Cigdem                           
+Chen	 Jiakang                           
+Wang	 Ningxi                            
+Zakharian	 David                        
+Qureshi	 Saad                           
+Bhatt	 Dhruv                            
+Nevelev	 Dennis                         
+Kim	 Dohyun                             
+Calautti	 Domenico                      
+Dong	 Jiaqing                           
+Sikuku	 Damian                          
+Smith	 Dylan                            
+Ali	 Duaa                               
+Duan	 Danyang                           
+Ideho	 Emmanuel                         
+Matus	 Eduardo                          
+Ngoiya	 Eric                            
+Xia	 Zhige                              
+Khot	 Farhan                            
+Rashidzadeh	 Farnood                    
+Malcolm	 Francis                        
+Guo	 Fangyu                             
+Egnatis	 Hunter                         
+Narayanan	 Roshani                      
+Mohamud	 Hamza                          
+Xu	 Haofan                              
+Kaliappa Gounder Thangavel	 Harsath     
+Murali	 Hariharan                       
+Nguyen	 Thi                             
+Akhundov	 Huseyn                        
+Saifee	 Hasnain                         
+Jeon	 Hyewon                            
+Is	 Enes                                
+Kantak	 Isha                            
+Ahmadzai	 Jamal                         
+Liu	 Junrui                             
+Wang	 Jeff                              
+Patel	 Jenish                           
+Cheng	 JiaJun                           
+He	 JianKai                             
+Su	 Jingya                              
+Li	 Zongda                              
+Ren	 Dexuan                             
+Su	 Zhu                                 
+Yu	 Kuimou                              
+Liang	 Qingyang                         
+Li	 Ling                                
+Zhao	 Yan                               
+Liu	 Siyao                              
+Fazari	 Marino                          
+Fedorov	 Maksim                         
+Alakozay	 Masih                         
+Zaslavsky	 Michael                      
+Karunakaran	 Mirthipan                  
+Kirwin	 Michael                         
+Mohamed	 Amir                           
+Mohelsky	 Alexander                     
+Anis	 Mohsin                            
+Sharif	 Mohammadreza                    
+Shaw	 Mathew                            
+Umar	 Mukhtar                           
+Abbas	 Noor                             
+Landivar	 Nicholas                      
+Najafi	 Nima                            
+Fernando	 Nishith                       
+Hu	 Zhenhua                             
+Wang	 Tuoxiang                          
+Patel	 Ohm                              
+Celik	 Omer                             
+Bahmanikia	 Parsa                       
+Nguyen	 Phu                             
+Qian	 Yuan                              
+Qu	 Yubo                                
+Ahmed	 Ismam                            
+Ahmadi	 Ramin                           
+Li	 Junyi                               
+Shawootsang	 Rigzin                     
+Singh	 Rana Manav                       
+Masson	 Robin                           
+Huang	 Lii                               
+Ren	 Zhe                                
+Shah	 Suleyman                          
+Banga	 Samridh                          
+Momin	 Saniz Shahbuddin                 
+Desai	 Sanjit                           
+Scepanovic	 Srdjan                      
+Cetinalp	 Serif                         
+Morgan	 Shayn                           
+Li	 Shilin                              
+Zhang	 Zhijie                           
+Fahimi	 Sina                            
+Al-Ogaidi	 Yousif                       
+Tan	 Xuchen                             
+Sun	 Taoran                             
+Oyshi	 Tashfia                          
+Dela Pena	 Timothy                      
+Wondimagegnehu	 Tigist                  
+Guo	 Tommy                              
+Naeem	 Umar                             
+Akhtar	 Usman                           
+Verma	 Matthew                          
+Sivagnanasuntharam	 Visaagan            
+Nguyen	 Vincent                         
+Khaslavsky	 Yaniv                       
+Armoush	 Mhd Yazan                      
+Elsaid	 Yasser                          
+Zhou	 Yibo                              
+Zhang	 Yichi                            
+Sun	 Yueyang                            
+Yun	 Hao                                
+Duan	 Yuntian                           
+Khan	 Zain                              
+Zhou	 Zhaochang       
+Wong	FengC
+Chan	Jeck
+Lau	XueSW
+Yu	Ying
+Wong	JunXiu
+Tong	Tracy
+Pak	 Son-hyang
+sh-4.2$ $ cat tmp
+Ali	 Abdallah                           
+Tam	 Aaron                              
+Djama	 Abdullah                         
+Adenekan	 Ademola                       
+Marusarz	 Agnieszka                     
+Ali	 Ahmad                              
+Malhi	 Ahmad                            
+Ahmed	 Syed                             
+Anowar	 Aiyan                           
+Katmeh	 Ammar                           
+Radivojevic	 Andrija                    
+Lin	 Andy                               
+Sharma	 Aneesh                          
+Pethani	 Aniket                         
+Osman Ali	 Ayub                         
+Akhanda	 Arnin                          
+Kalra	 Aryan                            
+Wadhera	 Ashna                          
+Jawad	 Ahmed                            
+Anand	 Ayush                            
+Cheema	 Azeem                           
+Panchal	 Bansari                        
+Sun	 Wenzhi                             
+Weiler	 Benjamin                        
+Kim	 Boho                               
+Cooke	 Bryce                            
+Liu	 Bohao                              
+Baek	 Cheulsoon                         
+Chen	 Zhihao                            
+Chhina	 Amandeep                        
+Patel	 Chinmay                          
+Chong	 Noel                             
+De Croos	 Christopher                   
+Bakar	 Cigdem                           
+Chen	 Jiakang                           
+Wang	 Ningxi                            
+Zakharian	 David                        
+Qureshi	 Saad                           
+Bhatt	 Dhruv                            
+Nevelev	 Dennis                         
+Kim	 Dohyun                             
+Calautti	 Domenico                      
+Dong	 Jiaqing                           
+Sikuku	 Damian                          
+Smith	 Dylan                            
+Ali	 Duaa                               
+Duan	 Danyang                           
+Ideho	 Emmanuel                         
+Matus	 Eduardo                          
+Ngoiya	 Eric                            
+Xia	 Zhige                              
+Khot	 Farhan                            
+Rashidzadeh	 Farnood                    
+Malcolm	 Francis                        
+Guo	 Fangyu                             
+Egnatis	 Hunter                         
+Narayanan	 Roshani                      
+Mohamud	 Hamza                          
+Xu	 Haofan                              
+Kaliappa Gounder Thangavel	 Harsath     
+Murali	 Hariharan                       
+Nguyen	 Thi                             
+Akhundov	 Huseyn                        
+Saifee	 Hasnain                         
+Jeon	 Hyewon                            
+Is	 Enes                                
+Kantak	 Isha                            
+Ahmadzai	 Jamal                         
+Liu	 Junrui                             
+Wang	 Jeff                              
+Patel	 Jenish                           
+Cheng	 JiaJun                           
+He	 JianKai                             
+Su	 Jingya                              
+Li	 Zongda                              
+Ren	 Dexuan                             
+Su	 Zhu                                 
+Yu	 Kuimou                              
+Liang	 Qingyang                         
+Li	 Ling                                
+Zhao	 Yan                               
+Liu	 Siyao                              
+Fazari	 Marino                          
+Fedorov	 Maksim                         
+Alakozay	 Masih                         
+Zaslavsky	 Michael                      
+Karunakaran	 Mirthipan 
+                 
+67.$ grep the lyrics
+   #So turn off the light, 1980
+   Say all your prayers and then, 
+   Beautiful mermaids will swim through the sea,
+   And you will be swimming there too. 
+   sea 1980 I got there by chance.
+68.$ grep -w the lyrics
+   #So turn off the light, 1980
+   Beautiful mermaids will swim through the sea,
+69.$ grep -v -w  the lyrics
+   Well you know it's your bedtime, 
+   Say all your prayers and then, 
+   Oh you sleepy young 1970 heads dream of wonderful things, 
+   And you will be swimming there too. 
+   sea 1980 I got there by chance.
+70.$ grep [0-9] lyrics
+   #So turn off the light, 1980
+   Oh you sleepy young 1970 heads dream of wonderful things, 
+   sea 1980 I got there by chance.
+71.$ grep 1980 lyrics
+   #So turn off the light, 1980
+   sea 1980 I got there by chance.
+72.$ grep 1980$ lyrics
+   #So turn off the light, 1980
+73.$ grep sea lyrics
+   Beautiful mermaids will swim through the sea,
+   sea 1980 I got there by chance.
+74.$ grep ^sea lyrics
+   sea 1980 I got there by chance.
+75.$ grep -w ^.nd lyrics 
+   And you will be swimming there too. 
+76.$ grep [ABCD] lyrics
+   Beautiful mermaids will swim through the sea,
+   And you will be swimming there too. 
+77.$ cd ..
+78.$ find . -name "xFile?"
+   ./lab7working/xFile2
+   ./lab7working/xFile3
+   ./lab7working/xFile1
+79.$ find . -name "xFile*"
+   ./lab7working/xFile2
+   ./lab7working/xFile3
+   ./lab7working/xFile1
+   ./lab7working/xFile123
+   ./lab7working/xFile123compact
+80.1)$ find . -name "xFile*" -exec mv {}  {}.Lab7 \;
+     // Find file xFile1 xFile2 xFile3 xFile123 xFile123compact and rename it to xFile1.LAb7 xFile3.LAb7 xFile2.LAb7 xFile123.LAb7 xFile123compact.LAb7
+   2)$ ls lab7working
+     classlist  tmp			 xFile123.Lab7	xFile2.Lab7
+     lyrics	   xFile123compact.Lab7  xFile1.Lab7	xFile3.Lab7
+   3)$ find . -name "xFile*" -exec chmod 775 {} \;
+     //find all the file which name begins wiht xFile and change the permission to rwxrwxr-x
+   4)$ ls -l lab7working
+     total 44
+     -rw------- 1 dohyun97 ugrad 9251 Nov 25 01:59 classlist
+     -rwx------ 1 dohyun97 ugrad  269 Nov 25 02:56 lyrics
+     -rw------- 1 dohyun97 ugrad 6046 Nov 25 02:50 tmp
+     -rwxrwxr-x 1 dohyun97 ugrad  145 Nov 25 00:37 xFile123compact.Lab7
+     -rwxrwxr-x 1 dohyun97 ugrad  377 Nov 25 00:24 xFile123.Lab7
+     -rwxrwxr-x 1 dohyun97 ugrad  168 Nov 25 00:57 xFile1.Lab7
+     -rwxrwxr-x 1 dohyun97 ugrad  145 Nov 24 23:10 xFile2.Lab7
+     -rwxrwxr-x 1 dohyun97 ugrad   87 Nov 24 23:10 xFile3.Lab7
+82.$ cat >script.h
+#!/bin/sh
+echo "Hello,now is `date`. Have a good day"
+echo "There are `cat classlist | wc -l` students in EECS2031A 2020F"
+echo "There are `grep -w Nguyen classlist | wc -l` students in 2031A with famiy name Nguyen"
+sh-4.2$ chmod u+x script.h
+sh-4.2$ script.h
+Hello,now is Wed Nov 25 03:45:28 EST 2020. Have a good day
+There are 153 students in EECS2031A 2020F
+There are 3 students in 2031A with famy name Nguyen
+
+
